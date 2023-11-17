@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('biens', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('prenom');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role',['user','admin']);
-            $table->rememberToken();
+            $table->enum('categorie', ['Luxe', 'Moyen', 'Classique']);
+            $table->string('image');
+            $table->string('description');
+            $table->string('adresse_localisation');
+            $table->enum('status', ['Occupé', 'Non Occupé']);
             $table->timestamps();
         });
-
     }
 
     /**
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('biens');
     }
 };
