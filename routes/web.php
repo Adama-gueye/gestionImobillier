@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/bien', function () {
+    return view('template.form');
 });
+Route::get('/user', function () {
+    return view('template.table');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
