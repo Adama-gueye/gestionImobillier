@@ -63,52 +63,52 @@
         <!-- Sidebar End -->
 
 
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
+    <!-- Content Start -->
+    <div class="content">
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+            </a>
+            <a href="#" class="sidebar-toggler flex-shrink-0">
+                <i class="fa fa-bars"></i>
+            </a>
+            <form class="d-none d-md-flex ms-4">
+                <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+            </form>
+            <div class="navbar-nav align-items-center ms-auto">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fa fa-envelope me-lg-2"></i>
+                        <span class="d-none d-lg-inline-flex">Message</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                        <a href="#" class="dropdown-item">
+                            <div class="d-flex align-items-center">
+                                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <div class="ms-2">
+                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                    <small>15 minutes ago</small>
                                 </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Voir tout</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Mon Profil</a>
-                            <a href="/logOut" class="dropdown-item">Deconnexion</a>
-                        </div>
+                        <hr class="dropdown-divider">
+                        <a href="#" class="dropdown-item text-center">Voir tout</a>
                     </div>
                 </div>
-            </nav>
-            <!-- Navbar End -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex">John Doe</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                        <a href="#" class="dropdown-item">Mon Profil</a>
+                        <a href="/logOut" class="dropdown-item">Deconnexion</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
 
 
         <!-- Form Start -->
@@ -117,7 +117,7 @@
         <div class="col-sm-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4 text-center">AJOUT D'UN BIEN</h6>
-                <form enctype="multipart/form-data" action="{{ route('bien.store') }}" method="POST">
+                <form enctype="multipart/form-data" action="{{ route('bien.update',$bien->id) }}" method="POST">
                 @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -128,98 +128,51 @@
                         </div>
                         @endif
                     @csrf 
-                <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" class="form-control bg-dark" id="image" name="image">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image actuelle</label><br>
+                        <img src="{{ url('public/images/' . $bien->image) }}" width="100" height="100" class="img img-responsive" alt="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="new_image" class="form-label">Nouvelle image</label>
+                        <input type="file" class="form-control" name="image" value="{{$bien->image}}">
                     </div>
                     <div class="mb-3">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" name="nom">
+                        <input type="text" class="form-control" id="nom" name="nom" value="{{ $bien->nom}}">
                     </div>
                     <div class="mb-3">
                         <label for="categorie" class="form-label">Categorie</label>
-                        <select name="categorie" id="" class="form-control">
+                        <select name="categorie" id="" class="form-control" value="{{ $bien->categorie}}">
                             <option value="">---Veuillez choisir une catégorie---</option>
-                            <option value="Luxe">Luxe</option>
-                            <option value="Moyen">Moyen</option>
-                            <option value="Classique">Classic</option>
+                            <option value="Luxe" {{ $bien->categorie == 'Luxe' ? 'selected' : '' }} >Luxe</option>
+                            <option value="Moyen" {{ $bien->categorie == 'Moyen' ? 'selected' : '' }}>Moyen</option>
+                            <option value="Classique" {{ $bien->categorie == 'Classique' ? 'selected' : '' }}>Classique</option>
                         </select>
                     </div>
                     <fieldset class="row mb-3">Description
-                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">
-                            
-                        </textarea>
+                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">{{ $bien->description}}</textarea>
                     </fieldset>
                     <div class="mb-3">
                         <label for="adresse" class="form-label">Adresse</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse_localisation">
+                        <input type="text" class="form-control" id="adresse" name="adresse_localisation" value="{{ $bien->adresse_localisation}}">
                     </div>
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select name="status" id="" class="form-control">
                             <option value="">---Veuillez choisir un status---</option>
-                            <option value="Occupé">Occupé</option>
-                            <option value="Non Occupé">Non Occupé</option>
+                            <option value="Occupé" {{ $bien->status == 'Occupé' ? 'selected' : '' }}>Occupé</option>
+                            <option value="Non Occupé" {{ $bien->status == 'Non Occupé' ? 'selected' : '' }}>Non Occupé</option>
                         </select>
                     </div>
+                    {{ method_field('PATCH') }}
+                    {{ csrf_field() }}
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form>
             </div>
         </div>
-<!-- Form End -->
-<!-- Table Start -->
-    <div class="row g-4"> 
-        <div class="col-sm-12 ">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">LISTE DES BIENS</h6>
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">IMAGE</th>
-                            <th scope="col">NOM</th>
-                            <th scope="col">CATEGORIE</th>
-                            <th scope="col">DESCRIPTION</th>
-                            <th scope="col">ADRESSE</th>
-                            <th scope="col">STATUS</th>
-                            <th scope="col">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($biens as $bien)
-                            <tr>
-                                <td><img src="{{ url('public/images/'.$bien->image) }}" width="70" height="70" class="img img-responsive" alt=""></td>
-                                <td>{{$bien->nom}}</td>
-                                <td>{{$bien->categorie}}</td>
-                                <td>{{$bien->description}}</td>
-                                <td>{{$bien->adresse_localisation}}</td>
-                                <td>{{$bien->status}}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ route('bien.show', $bien->id) }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{ route('bien.detail', $bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
-                                    <form method="POST" action="{{ route('bien.destroy',$bien->id)}}" accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-</div>
-<!-- Form End -->
 
-<script>
-    function confirmDelete() {
-        if (!confirm("Etes Vous sûr de vouloir supprimer cette Enregistrement?")) {
-            return false;
-        }
-    }
-</script>
+
 <!-- Footer Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="bg-secondary rounded-top p-4">
@@ -235,7 +188,6 @@
         </div>
     </div>
 </div>
-
 <!-- Footer End -->
 </div>
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
