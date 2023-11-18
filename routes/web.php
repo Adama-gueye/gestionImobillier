@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BienController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/bien', function () {
+Route::get('/', function () {
     return view('template.form');
 });
 Route::get('/user', function () {
     return view('template.table');
 });
 
+
+Route::get('/index',[BienController::class,'index'])->name('index');
+Route::get('/user',[UserController::class,'index'])->name('user');
+Route::post('/ajout',[BienController::class,'store'])->name('bien.store');
+Route::get('/show{id}',[BienController::class,'show'])->name('bien.show');
+Route::get('/detail{id}',[BienController::class,'detail'])->name('bien.detail');
+Route::patch('/update{id}',[BienController::class,'update'])->name('bien.update');
+Route::delete('/delete{id}',[BienController::class,'destroy'])->name('bien.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
