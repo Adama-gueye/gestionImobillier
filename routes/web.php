@@ -3,6 +3,7 @@
 use App\Http\Controllers\BienController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Bien;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,11 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('template.form');
+    return view('welcome');
 });
-Route::get('/user', function () {
-    return view('template.table');
-});
+Route::get('/acceuil',[BienController::class, 'acceuil'])->name('acceuil');
+Route::get('/apropos',[BienController::class, 'apropos'])->name('apropos');
+Route::get('/bien{id}',[UserController::class,'biens'])->name('biens');
+Route::get('/detailBien{id}',[UserController::class,'show'])->name('detailBien');
 
 
 Route::get('/index',[BienController::class,'index'])->name('index');

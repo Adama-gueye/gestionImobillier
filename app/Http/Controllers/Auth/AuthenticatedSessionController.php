@@ -28,8 +28,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        $user = Auth::user();
 
-        return redirect()->route('index');
+        return redirect()->route('biens', ['id' => $user->id]);
     }
 
     /**

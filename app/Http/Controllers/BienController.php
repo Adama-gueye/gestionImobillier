@@ -17,6 +17,13 @@ class BienController extends Controller
         return view('template.form',compact('biens'));
     }
 
+    function apropos() {
+        return view('about-us');
+    }
+    function acceuil() {
+        return view('index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

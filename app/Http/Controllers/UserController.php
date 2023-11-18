@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bien;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,11 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function biens($id)
     {
-        //
+        $user = User::find($id);
+        $biens = Bien::all();
+        return view('indexUser',compact('user','biens'));
     }
 
     /**
@@ -35,9 +38,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $bien=Bien::find($id);
+        return view('detailBien',compact('bien'));
     }
 
     /**
