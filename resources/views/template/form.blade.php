@@ -56,7 +56,7 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="/index" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Biens</a>
-                    <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Users</a>
+                    <a href="{{route('user')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Users</a>
                 </div>
             </nav>
         </div>
@@ -103,7 +103,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">Mon Profil</a>
-                            <a href="/logOut" class="dropdown-item">Deconnexion</a>
+                            <a href="{{ route('logout') }}" class="dropdown-item">Deconnexion</a>
                         </div>
                     </div>
                 </div>

@@ -56,7 +56,7 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="/index" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Biens</a>
-                    <a href="/user" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Users</a>
+                    <a href="{{route('user')}}" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Users</a>
                 </div>
             </nav>
         </div>
@@ -119,42 +119,36 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Country</th>
-                                <th scope="col">ZIP</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Date Inscription</th>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>jhon@email.com</td>
-                                <td>USA</td>
-                                <td>123</td>
-                                <td>Member</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mark@email.com</td>
-                                <td>UK</td>
-                                <td>456</td>
-                                <td>Member</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>jacob@email.com</td>
-                                <td>AU</td>
-                                <td>789</td>
-                                <td>Member</td>
-                            </tr>
+                            @foreach($users as $user)
+                                <tr>
+                                    <th scope="row">{{$user->id}}</th>
+                                    <td>{{$user->nom}}</td>
+                                    <td>{{$user->prenom}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td>{{$user->role}}</td>
+                                    <td>{{$user->created_at}}</td>
+                                    <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
+                                    <form method="POST" action="" accept-charset="UTF-8" style="display:inline">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                    </div>
+                                </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

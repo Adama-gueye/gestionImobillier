@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('template.form');
 });
+Route::get('/user', function () {
+    return view('template.table');
+});
+
 
 Route::get('/index',[BienController::class,'index'])->name('index');
 Route::get('/user',[UserController::class,'index'])->name('user');
