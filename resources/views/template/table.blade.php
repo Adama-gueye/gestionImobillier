@@ -102,8 +102,10 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Mon Profil</a>
-                            <a href="/logOut" class="dropdown-item">Deconnexion</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item">SE DECONNECTER</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
     <link rel="stylesheet" href="assets/css/vanilla-zoom.min.css">
 </head>
-
-<body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
         <div class="container"><a class="navbar-brand logo" href="#">Immobilier</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
@@ -26,6 +24,16 @@
             </div>
         </div>
     </nav>
+
+<body style="background-color: blanchedalmond;">
+    <!-- Section principale avec image et texte descriptif -->
+    <div class="jumbotron text-center">
+        <img src="{{ asset('images/pexels-photo-1080696.jpeg') }}" class="img-fluid" alt="Bien immobilier">
+        <h1 class="display-4">Bien immobilier à découvrir</h1>
+        <p class="lead">Une résidence élégante et moderne située au cœur de la ville, offrant un confort exceptionnel et des équipements de luxe. Cette propriété unique combine un design contemporain avec des espaces de vie spacieux. Profitez de la tranquillité dans un environnement soigneusement conçu, idéal pour une vie urbaine sophistiquée.</p>
+    </div>
+
+    <!-- Footer existant -->
     <footer class="page-footer dark">
         <div class="container">
             <div class="row">

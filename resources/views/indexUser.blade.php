@@ -29,6 +29,10 @@
     <main class="page">
         <section class="clean-block about-us">
             <div class="container">
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-danger">SE DECONNECTER</button>
+            </form>
                 <div class="block-heading">
                     <h2 class="text-info">Bienvenue {{ $user->nom }} {{$user->prenom}}</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
