@@ -50,7 +50,7 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
+                        <h6 class="mb-0">{{ $user->nom }} {{$user->prenom}}</h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -99,20 +99,18 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none d-lg-inline-flex">{{ $user->nom }} {{$user->prenom}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item">SE DECONNECTER</button>
+                                <button type="submit" class="dropdown-item">Se déconnecter</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
         <!-- Form Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -183,6 +181,7 @@
                             <th scope="col">DESCRIPTION</th>
                             <th scope="col">ADRESSE</th>
                             <th scope="col">STATUS</th>
+                            <th scope="col">DATE</th>
                             <th scope="col">ACTION</th>
                         </tr>
                     </thead>
@@ -195,11 +194,12 @@
                                 <td>{{$bien->description}}</td>
                                 <td>{{$bien->adresse_localisation}}</td>
                                 <td>{{$bien->status}}</td>
+                                <td>{{$bien->created_at}}</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('bien.show', $bien->id) }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{{ route('bien.detail', $bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
-                                    <form method="POST" action="{{ route('bien.destroy',$bien->id)}}" accept-charset="UTF-8" style="display:inline">
+                                    <form method="POST" action="{{ route('bien.destroy',$bien->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>

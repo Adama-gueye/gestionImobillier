@@ -34,8 +34,10 @@ class AuthenticatedSessionController extends Controller
 
         if ($user->role === 'admin') {
             return redirect()->route('index');
-        } else {
+        } elseif($user->role === 'user') {
             return redirect()->route('biens', ['id' => $user->id]);
+        }else{
+            return view('template.404');
         }
     }
 

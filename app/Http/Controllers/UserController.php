@@ -34,6 +34,13 @@ class UserController extends Controller
     {
         //
     }
+    public function changeRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->role = $request->input('role');
+        $user->save();
+        return redirect()->route('user');
+    }
 
     /**
      * Display the specified resource.
@@ -41,7 +48,8 @@ class UserController extends Controller
     public function show($id)
     {
         $bien=Bien::find($id);
-        return view('detailBien',compact('bien'));
+        $user=User::find($id);
+        return view('detailBien',compact('bien','user'));
     }
 
     /**
@@ -63,8 +71,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        return redirect()->route('user');
     }
 }

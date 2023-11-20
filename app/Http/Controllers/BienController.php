@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bien;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BienController extends Controller
 {
@@ -14,7 +15,8 @@ class BienController extends Controller
     {
         //Lister
         $biens = Bien::all();
-        return view('template.form',compact('biens'));
+        $user = Auth::user();
+        return view('template.form',compact('biens','user'));
     }
 
     function apropos() {

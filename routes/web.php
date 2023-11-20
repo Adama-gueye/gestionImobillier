@@ -37,7 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/show{id}',[BienController::class,'show'])->name('bien.show');
     Route::get('/detail{id}',[BienController::class,'detail'])->name('bien.detail');
     Route::patch('/update{id}',[BienController::class,'update'])->name('bien.update');
-    Route::delete('/delete{id}',[BienController::class,'destroy'])->name('bien.destroy');
+    Route::delete('/deleteBien{id}',[BienController::class,'destroy'])->name('bien.destroy');
+    Route::delete('/delete{id}',[UserController::class,'destroy'])->name('user.destroy');
+    Route::patch('/user/{id}/changerole', [UserController::class,'changeRole'])->name('user.changeRole');
+
 });
 
 

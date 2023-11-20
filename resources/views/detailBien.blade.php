@@ -41,15 +41,24 @@
     @endif
 <div class="row">
     <div class="card-header" style="background: rgb(2,36,36); color:white;text-align:center;"><h2> Détail concernant le bien {{$bien->nom}}</h2></div>
+    <form id="redirectBackForm" method="post">
+        @csrf
+        <button type="submit" class="btn btn-success">⬅</button>
+    </form>
+
+    <script>
+        document.getElementById('redirectBackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            window.history.back();
+        });
+    </script>
         <div class="row col-md-8">
             <div class="col-md-6 mt-5">               
-
                <h4> Nom : {{$bien->nom}} </h4> 
                <h4> description : {{$bien->description}} </h4> 
                <h4> categorie : {{$bien->categorie}} </h4> 
                <h4> adresse_localisation : {{$bien->adresse_localisation}} </h4> 
                <h4> status : {{$bien->status}} </h4> 
- 
         </div>
         <div class="col-md-3 mt-5">   
             <table>
