@@ -18,11 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'email',
         'password',
     ];
-
+    function bien() {
+        return $this->belongsToMany(User::class, 'commentaires', 'user_id', 'bien_id');
+     }
     /**
      * The attributes that should be hidden for serialization.
      *

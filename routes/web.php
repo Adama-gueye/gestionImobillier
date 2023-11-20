@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\BienController;
+use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Models\Bien;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,22 +18,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/bien', function () {
-    return view('template.form');
-});
-Route::get('/user', function () {
-    return view('template.table');
-});
-
+Route::get('/',[BienController::class, 'acceuil'])->name('acceuil');
+Route::get('/apropos',[BienController::class, 'apropos'])->name('apropos');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/comment', [CommentaireController::class, 'index'])->name('comment');
+    Route::post('/ajoutcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
+    Route::get('/idcomment', [CommentaireController::class, 'show'])->name('test');
+    Route::delete('/deletecomment1/{id}', [CommentaireController::class, 'destroy'])->name('deletecomment');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/bien{id}',[UserController::class,'biens'])->name('biens');
+    Route::get('/detailBien{id}',[UserController::class,'show'])->name('detailBien');
+    Route::get('/index',[BienController::class,'index'])->name('index');
+    Route::get('/user',[UserController::class,'index'])->name('user');
+    Route::post('/ajout',[BienController::class,'store'])->name('bien.store');
+    Route::get('/show{id}',[BienController::class,'show'])->name('bien.show');
+    Route::get('/detail{id}',[BienController::class,'detail'])->name('bien.detail');
+    Route::patch('/update{id}',[BienController::class,'update'])->name('bien.update');
+    Route::delete('/deleteBien{id}',[BienController::class,'destroy'])->name('bien.destroy');
+    Route::delete('/delete{id}',[UserController::class,'destroy'])->name('user.destroy');
+    Route::patch('/user/{id}/changerole', [UserController::class,'changeRole'])->name('user.changeRole');
+
 });
+
 
 require __DIR__.'/auth.php';

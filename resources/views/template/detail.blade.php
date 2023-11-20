@@ -56,7 +56,7 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="/index" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Biens</a>
-                    <a href="{{route('user')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Users</a>
+                    <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Users</a>
                 </div>
             </nav>
         </div>
@@ -103,123 +103,52 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">Mon Profil</a>
-                            <a href="{{ route('logout') }}" class="dropdown-item">Deconnexion</a>
+                            <a href="/logOut" class="dropdown-item">Deconnexion</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
+            <div class="container mt-2">
+    @if(session('success'))
+        <div class="alert alert-success">
+            return {{session('success')}}
+        </div>
+    @endif
+<div class="row">
+    <div class="card-header" style="background: rgb(2,36,36); color:white;text-align:center;"><h2> Détail concernant le bien {{$bien->nom}}</h2></div>
+            <div class="col-md-3 mt-5">               
 
-
-        <!-- Form Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4 text-center">AJOUT D'UN BIEN</h6>
-                <form enctype="multipart/form-data" action="{{ route('bien.store') }}" method="POST">
-                @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                    @csrf 
-                <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" class="form-control bg-dark" id="image" name="image">
-                    </div>
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" name="nom">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categorie" class="form-label">Categorie</label>
-                        <select name="categorie" id="" class="form-control">
-                            <option value="">---Veuillez choisir une catégorie---</option>
-                            <option value="Luxe">Luxe</option>
-                            <option value="Moyen">Moyen</option>
-                            <option value="Classique">Classic</option>
-                        </select>
-                    </div>
-                    <fieldset class="row mb-3">Description
-                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">
-                            
-                        </textarea>
-                    </fieldset>
-                    <div class="mb-3">
-                        <label for="adresse" class="form-label">Adresse</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse_localisation">
-                    </div>
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select name="status" id="" class="form-control">
-                            <option value="">---Veuillez choisir un status---</option>
-                            <option value="Occupé">Occupé</option>
-                            <option value="Non Occupé">Non Occupé</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+               <h4> Nom : {{$bien->nom}} </h4> 
+               <h4> description : {{$bien->description}} </h4> 
+               <h4> categorie : {{$bien->categorie}} </h4> 
+               <h4> adresse_localisation : {{$bien->adresse_localisation}} </h4> 
+               <h4> status : {{$bien->status}} </h4> 
+ 
+        </div>
+        <div class="col-md-3 mt-5">   
+            <table>
+                <tr><td><img src="{{ url('public/images/'.$bien->image) }}" width="200" height="200" class="img img-responsive" alt=""></td></tr>
+            </table>
+        </div> 
+        <div class="col-md-6 mt-2"> 
+            <h5  class="mt-5">Commentaires</h5>
+            
+            
+            @foreach ($bien->commentaires as $commentaire)
+            <form method="post" action="{{ route('deletecomment', ['id' => $commentaire->id, 'bien_id' => $bien->id]) }}">
+            @csrf
+            @method('DELETE')
+                <p>{{ $commentaire->contenu }}</p>
+                <button type="submit">supprimer</button>
                 </form>
-            </div>
+            @endforeach
+            
         </div>
-<!-- Form End -->
-<!-- Table Start -->
-    <div class="row g-4"> 
-        <div class="col-sm-12 ">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">LISTE DES BIENS</h6>
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">IMAGE</th>
-                            <th scope="col">NOM</th>
-                            <th scope="col">CATEGORIE</th>
-                            <th scope="col">DESCRIPTION</th>
-                            <th scope="col">ADRESSE</th>
-                            <th scope="col">STATUS</th>
-                            <th scope="col">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($biens as $bien)
-                            <tr>
-                                <td><img src="{{ url('public/images/'.$bien->image) }}" width="70" height="70" class="img img-responsive" alt=""></td>
-                                <td>{{$bien->nom}}</td>
-                                <td>{{$bien->categorie}}</td>
-                                <td>{{$bien->description}}</td>
-                                <td>{{$bien->adresse_localisation}}</td>
-                                <td>{{$bien->status}}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ route('bien.show', $bien->id) }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{ route('bien.detail', $bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
-                                    <form method="POST" action="{{ route('bien.destroy',$bien->id)}}" accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        
+     </div>
 </div>
-<!-- Form End -->
 
-<script>
-    function confirmDelete() {
-        if (!confirm("Etes Vous sûr de vouloir supprimer cette Enregistrement?")) {
-            return false;
-        }
-    }
-</script>
 <!-- Footer Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="bg-secondary rounded-top p-4">
@@ -235,7 +164,6 @@
         </div>
     </div>
 </div>
-
 <!-- Footer End -->
 </div>
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
