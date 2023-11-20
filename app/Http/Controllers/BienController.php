@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bien;
+use App\Models\Commentaire;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BienController extends Controller
 {
@@ -15,15 +16,17 @@ class BienController extends Controller
     {
         //Lister
         $biens = Bien::all();
-        $user = Auth::user();
-        return view('template.form',compact('biens','user'));
+       
+        return view('template.form',compact('biens'));
     }
 
     function apropos() {
         return view('about-us');
     }
     function acceuil() {
-        return view('index');
+        $biens = Bien::all();
+       
+        return view('index',compact('biens'));
     }
 
     /**
@@ -85,7 +88,8 @@ class BienController extends Controller
     public function show($id)
     {
         $bien=Bien::find($id);
-        return view('template.updateBien',compact('bien'));
+      
+        return view('template.updateBien',compact('bien', 'users'));
     }
     
     /**
@@ -94,7 +98,8 @@ class BienController extends Controller
     public function detail($id)
     {
         $bien=Bien::find($id);
-        return view('template.detail',compact('bien'));
+        $comments = Bien::with('commentaires.bienAssocie')->find($id);
+        return view('template.detail',compact('bien', 'comments'));
     }
 
     /**

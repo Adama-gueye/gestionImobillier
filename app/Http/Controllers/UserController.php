@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bien;
+use App\Models\Commentaire;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -48,8 +49,9 @@ class UserController extends Controller
     public function show($id)
     {
         $bien=Bien::find($id);
-        $user=User::find($id);
-        return view('detailBien',compact('bien','user'));
+        $users = User::all();
+        $comments = Commentaire::all();
+        return view('detailBien',compact('bien', 'users','comments'));
     }
 
     /**

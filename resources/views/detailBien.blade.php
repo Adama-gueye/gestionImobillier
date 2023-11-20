@@ -53,28 +53,43 @@
         });
     </script>
         <div class="row col-md-8">
-            <div class="col-md-6 mt-5">               
+            <div class="col-md-6 mt-5">                            
+
                <h4> Nom : {{$bien->nom}} </h4> 
                <h4> description : {{$bien->description}} </h4> 
                <h4> categorie : {{$bien->categorie}} </h4> 
                <h4> adresse_localisation : {{$bien->adresse_localisation}} </h4> 
                <h4> status : {{$bien->status}} </h4> 
+ 
         </div>
         <div class="col-md-3 mt-5">   
             <table>
                 <tr><td><img src="{{ url('public/images/'.$bien->image) }}" width="200" height="200" class="img img-responsive" alt=""></td></tr>
             </table>
-        </div> 
-        <div class="col-md-3 mt-2"> 
-            <h5 style="text-align: right;" class="mt-5">Commentaires</h5>
-            <form action="">
-                <input type="text" class="form-control">
-            </form>
+        </div>
         </div>
 
-    </div>
-     </div>
-</div>
+        <div class="col-md-3"> 
+                <h5 style="text-align: center;" class="mt-2">Commentaires</h5>
+                <form enctype="multipart/form-data" action="{{ route('commentaire.store') }}"  method="POST">
+                    @csrf
+                    
+                    <input type="hidden" name="id_bien" value="{{$bien->id}}">
+                    @foreach($users as $user)
+                    <input type="hidden" name="id_user" value="{{$user->id}}">
+                    @endforeach
+                    <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+                    <button type="submit" class="">Commenter</button>
+                </form>
+                </div>
+
+            </div>
+             @foreach($comments as $comment)
+             <p>{{$comment->user->prenom}} {{$comment->user->nom}}</p>
+             <p>{{$comment->contenu}}</p>
+             @endforeach
+           
+
 </body>
 
 </html>

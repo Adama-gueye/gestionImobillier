@@ -22,9 +22,10 @@ class User extends Authenticatable
         'prenom',
         'email',
         'password',
-        'role',
     ];
-
+    function bien() {
+        return $this->belongsToMany(User::class, 'commentaires', 'user_id', 'bien_id');
+     }
     /**
      * The attributes that should be hidden for serialization.
      *

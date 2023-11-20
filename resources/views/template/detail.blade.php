@@ -117,8 +117,7 @@
     @endif
 <div class="row">
     <div class="card-header" style="background: rgb(2,36,36); color:white;text-align:center;"><h2> Détail concernant le bien {{$bien->nom}}</h2></div>
-        <div class="row col-md-8">
-            <div class="col-md-6 mt-5">               
+            <div class="col-md-3 mt-5">               
 
                <h4> Nom : {{$bien->nom}} </h4> 
                <h4> description : {{$bien->description}} </h4> 
@@ -132,11 +131,21 @@
                 <tr><td><img src="{{ url('public/images/'.$bien->image) }}" width="200" height="200" class="img img-responsive" alt=""></td></tr>
             </table>
         </div> 
-        <div class="col-md-3 mt-2"> 
-            <h5 style="text-align: right;" class="mt-5">Commentaires</h5>
+        <div class="col-md-6 mt-2"> 
+            <h5  class="mt-5">Commentaires</h5>
+            
+            
+            @foreach ($bien->commentaires as $commentaire)
+            <form method="post" action="{{ route('deletecomment', ['id' => $commentaire->id, 'bien_id' => $bien->id]) }}">
+            @csrf
+            @method('DELETE')
+                <p>{{ $commentaire->contenu }}</p>
+                <button type="submit">supprimer</button>
+                </form>
+            @endforeach
+            
         </div>
-
-    </div>
+        
      </div>
 </div>
 

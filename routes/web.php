@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BienController;
+use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Bien;
@@ -20,12 +21,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[BienController::class, 'acceuil'])->name('acceuil');
 Route::get('/apropos',[BienController::class, 'apropos'])->name('apropos');
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/comment', [CommentaireController::class, 'index'])->name('comment');
+    Route::post('/ajoutcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
+    Route::get('/idcomment', [CommentaireController::class, 'show'])->name('test');
+    Route::delete('/deletecomment1/{id}', [CommentaireController::class, 'destroy'])->name('deletecomment');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
