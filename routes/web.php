@@ -21,12 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[BienController::class, 'acceuil'])->name('acceuil');
 Route::get('/apropos',[BienController::class, 'apropos'])->name('apropos');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

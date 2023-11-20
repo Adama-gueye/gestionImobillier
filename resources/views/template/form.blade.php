@@ -201,7 +201,11 @@
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('bien.show', $bien->id) }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{{ route('bien.detail', $bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
+<<<<<<< HEAD
                                     <form method="POST" action="{{ route('bien.destroy',$bien->id) }}" accept-charset="UTF-8" style="display:inline">
+=======
+                                    <form method="POST" action="{{ route('bien.destroy',$bien->id)}}" accept-charset="UTF-8" style="display:inline">
+>>>>>>> origin/feature/moustapha
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>

@@ -6,6 +6,7 @@ use App\Models\Bien;
 use App\Models\Commentaire;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BienController extends Controller
 {
@@ -16,8 +17,9 @@ class BienController extends Controller
     {
         //Lister
         $biens = Bien::all();
+        $user = Auth::user();
        
-        return view('template.form',compact('biens'));
+        return view('template.form',compact('biens','user'));
     }
 
     function apropos() {
@@ -88,7 +90,7 @@ class BienController extends Controller
     public function show($id)
     {
         $bien=Bien::find($id);
-      
+        $users = User::all();
         return view('template.updateBien',compact('bien', 'users'));
     }
     
