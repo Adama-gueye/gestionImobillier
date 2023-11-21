@@ -81,7 +81,7 @@ class CommentaireController extends Controller
         
         $commentaire = Commentaire::find($id);
         $commentaire->delete();
-        return redirect()->route('index', ['bien' => $bien])->with('success', 'Commentaire supprimé avec succès');
+        return redirect()->back();
 
     }
 }

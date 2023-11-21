@@ -23,7 +23,9 @@ class BienController extends Controller
     }
 
     function apropos() {
-        return view('about-us');
+        $biens = Bien::all();
+        $comments = Commentaire::all();
+        return view('about-us',compact('biens','comments'));
     }
     function acceuil() {
         $biens = Bien::all();

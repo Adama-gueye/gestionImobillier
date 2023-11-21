@@ -34,21 +34,29 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/good/image2.jpg">
-                            
+
+                @foreach($biens as $bien)
+                    <div class="card alert alert-primary" style="max-width: 20rem;">
+                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->image) }}"></div>
+                            <hr>
+                             <p style="text-align:center">INFOS</p>
+                            <hr>
+                            <div class="card-body">
+                                <p class="card-text">Nom : {{$bien->nom}}</p>
+                                <p class="card-text">Catègorie : {{$bien->categorie}}</p>
+                                <p class="card-text">Adresse : {{$bien->adresse_localisation}}</p>
+                                <p class="card-text">Status : {{$bien->status}}</p>
+                                <p class="card-text">Description : {{$bien->description}}</p>
+                            </div>
+                            <hr>
+                            <p style="text-align:center">AVIS</p>
+                            <hr>
+                                @foreach($comments as $comment)
+                                    <p class="card-text">{{$comment->contenu}}</p>
+                                @endforeach
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/good/image1.jpg">
-                           
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="assets/img/good/image4.jpg">
-                            
-                        </div>
-                    </div>
+                    <div class="col-md-1"></div>
+                @endforeach
                 </div>
             </div>
         </section>

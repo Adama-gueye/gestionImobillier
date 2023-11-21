@@ -73,7 +73,7 @@
                             <x-text-input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
-
+                        <input type="text" name="role" value="user" hidden>
                         <!-- Register Button -->
                         <div class="d-flex justify-content-end mt-4">
                             <a class="btn btn-secondary me-3" href="{{ route('login') }}">

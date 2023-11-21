@@ -49,6 +49,14 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return view('auth.login');
+         $user = Auth::user();
+
+        if ($request->role === 'admin') {
+            return redirect()->route('index');
+        } elseif($request->role === 'user') {
+            return redirect()->route('biens', ['id' => $user->id]);
+        }else{
+            return view('template.404');
+        }
     }
 }

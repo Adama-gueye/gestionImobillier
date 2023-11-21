@@ -75,19 +75,25 @@
                     @csrf
                     
                     <input type="hidden" name="id_bien" value="{{$bien->id}}">
-                    @foreach($users as $user)
                     <input type="hidden" name="id_user" value="{{$user->id}}">
-                    @endforeach
                     <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
                     <button type="submit" class="">Commenter</button>
                 </form>
                 </div>
 
             </div>
-             @foreach($comments as $comment)
-             <p>{{$comment->user->prenom}} {{$comment->user->nom}}</p>
-             <p>{{$comment->contenu}}</p>
-             @endforeach
+            <div class="row">
+                @foreach($comments as $comment)
+                    <div class="card alert alert-primary" style="max-width: 20rem;">
+                            <div class="card-header">{{$comment->user->prenom}} {{$comment->user->nom}}</div>
+                            <div class="card-body">
+                                <p class="card-text">{{$comment->contenu}}</p>
+                                <p class="card-text">{{$comment->created_at}}</p>
+                            </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                @endforeach
+            </div>
            
 
 </body>

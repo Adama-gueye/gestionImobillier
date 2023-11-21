@@ -6,6 +6,7 @@ use App\Models\Bien;
 use App\Models\Commentaire;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('template.table',compact('users'));
+        $user = Auth::user();
+        return view('template.table',compact('users','user'));
     }
 
     /**
@@ -49,9 +51,9 @@ class UserController extends Controller
     public function show($id)
     {
         $bien=Bien::find($id);
-        $users = User::all();
+        $user = Auth::user();
         $comments = Commentaire::all();
-        return view('detailBien',compact('bien', 'users','comments'));
+        return view('detailBien',compact('bien', 'user','comments'));
     }
 
     /**

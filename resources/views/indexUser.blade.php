@@ -39,16 +39,16 @@
                 </div>
 
                 <div class="row justify-content-center">
-                @foreach($biens as $bien)
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card text-center clean-card">
-                            <img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->image) }}">
-                        </div>
-                        <a href="{{ route('detailBien', ['id' => $bien->id]) }}" class="btn btn-success">Voir plus</a>
-                    </div>
-                @endforeach
+    @foreach($biens as $bien)
+        <div class="col-sm-6 col-lg-4">
+            <div class="card text-center clean-card position-relative">
+                <img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->image) }}">
+                <a href="{{ route('detailBien', ['id' => $bien->id]) }}" class="btn btn-success position-absolute top-50 start-50 translate-middle" style="opacity: 0.8;">Voir plus</a>
+            </div>
+        </div>
+    @endforeach
+</div>
 
-                </div>
             </div>
         </section>
     </main>
