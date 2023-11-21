@@ -43,7 +43,7 @@
     <div class="card-header" style="background: rgb(2,36,36); color:white;text-align:center;"><h2> Détail concernant le bien {{$bien->nom}}</h2></div>
     <form id="redirectBackForm" method="post">
         @csrf
-        <button type="submit" class="btn btn-success">⬅</button>
+        <button type="submit" class="btn alert-primary">⬅</button>
     </form>
 
     <script>
@@ -73,25 +73,26 @@
                 <h5 style="text-align: center;" class="mt-2">Commentaires</h5>
                 <form enctype="multipart/form-data" action="{{ route('commentaire.store') }}"  method="POST">
                     @csrf
-                    
                     <input type="hidden" name="id_bien" value="{{$bien->id}}">
                     <input type="hidden" name="id_user" value="{{$user->id}}">
                     <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
-                    <button type="submit" class="">Commenter</button>
+                    <button type="submit" class=" alert alert-danger">Commenter</button>
                 </form>
                 </div>
 
             </div>
             <div class="row">
                 @foreach($comments as $comment)
-                    <div class="card alert alert-primary" style="max-width: 20rem;">
+                    @if($bien->id === $comment->bien_id)
+                        <div class="card alert alert-primary" style="max-width: 20rem;">
                             <div class="card-header">{{$comment->user->prenom}} {{$comment->user->nom}}</div>
                             <div class="card-body">
                                 <p class="card-text">{{$comment->contenu}}</p>
                                 <p class="card-text">{{$comment->created_at}}</p>
                             </div>
-                    </div>
+                        </div>
                     <div class="col-md-1"></div>
+                    @endif
                 @endforeach
             </div>
            

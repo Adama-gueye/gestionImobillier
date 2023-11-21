@@ -37,10 +37,13 @@ class UserController extends Controller
     {
         //
     }
-    public function changeRole(Request $request, $id)
+    public function changeRole($id)
     {
-        $user = User::findOrFail($id);
-        $user->role = $request->input('role');
+        $user = User::find($id);
+        if($user->role==='user')
+            $user->role = 'admin';
+        else
+            $user->role = 'user';
         $user->save();
         return redirect()->route('user');
     }

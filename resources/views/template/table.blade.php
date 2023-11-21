@@ -144,7 +144,6 @@
                                             <form class="change-role-form" action="{{ route('user.changeRole', $user->id) }}" method="post">
                                                 {{ method_field('PATCH') }}
                                                 {{ csrf_field() }}
-                                                <input type="text" name="role" value="{{ $user->role }}" hidden>
                                                 <button type="submit" class="btn btn-outline-primary">Changer Role</button>
                                             </form>
                                         </td>

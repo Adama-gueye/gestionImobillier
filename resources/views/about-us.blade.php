@@ -37,22 +37,22 @@
 
                 @foreach($biens as $bien)
                     <div class="card alert alert-primary" style="max-width: 20rem;">
-                        <div class="card text-center clean-card"><img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->image) }}"></div>
+                        <div class="card text-center clean-card position-relative"><img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->image) }}">
+                        <a href="{{ route('detailBien', ['id' => $bien->id]) }}" class="btn btn-success position-absolute top-50 start-50 translate-middle" style="opacity: 0.8;">Voir plus</a></div>
                             <hr>
                              <p style="text-align:center">INFOS</p>
                             <hr>
                             <div class="card-body">
                                 <p class="card-text">Nom : {{$bien->nom}}</p>
                                 <p class="card-text">Catègorie : {{$bien->categorie}}</p>
-                                <p class="card-text">Adresse : {{$bien->adresse_localisation}}</p>
-                                <p class="card-text">Status : {{$bien->status}}</p>
-                                <p class="card-text">Description : {{$bien->description}}</p>
                             </div>
                             <hr>
                             <p style="text-align:center">AVIS</p>
                             <hr>
                                 @foreach($comments as $comment)
-                                    <p class="card-text">{{$comment->contenu}}</p>
+                                    @if($bien->id === $comment->bien_id)
+                                        <p class="card-text">{{$comment->contenu}}</p>
+                                    @endif
                                 @endforeach
                         </div>
                     <div class="col-md-1"></div>
