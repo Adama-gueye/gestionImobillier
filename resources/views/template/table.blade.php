@@ -149,7 +149,6 @@
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
                                                 <form method="POST" action="{{ route('user.destroy',$user->id)}}" accept-charset="UTF-8" style="display:inline">
                                                     {{ method_field('DELETE') }}
                                                     {{ csrf_field() }}

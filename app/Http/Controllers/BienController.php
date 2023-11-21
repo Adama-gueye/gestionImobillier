@@ -102,8 +102,9 @@ class BienController extends Controller
     public function detail($id)
     {
         $bien=Bien::find($id);
+        $user=Auth::user();
         $comments = Bien::with('commentaires.bienAssocie')->find($id);
-        return view('template.detail',compact('bien', 'comments'));
+        return view('template.detail',compact('bien', 'comments','user'));
     }
 
     /**

@@ -50,13 +50,13 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
+                        <h6 class="mb-0">{{ $user->nom }} {{ $user->prenom }}</h6>
                         <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="/index" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Biens</a>
-                    <a href="/user" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Users</a>
+                    <a href="{{route('user')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Users</a>
                 </div>
             </nav>
         </div>
@@ -99,11 +99,13 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none d-lg-inline-flex">{{ $user->nom }} {{ $user->prenom }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Mon Profil</a>
-                            <a href="/logOut" class="dropdown-item">Deconnexion</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Se déconnecter</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -139,8 +141,8 @@
             <form method="post" action="{{ route('deletecomment', ['id' => $commentaire->id, 'bien_id' => $bien->id]) }}">
             @csrf
             @method('DELETE')
-                <p>{{ $commentaire->contenu }}</p>
-                <button type="submit">supprimer</button>
+                <p>{{ $commentaire->contenu}}
+                <button type="submit" class="btn btn-outline-primary" title="supprimer commentaire"><i class="fas fa-trash"></i></button></p>
                 </form>
             @endforeach
             
@@ -150,22 +152,6 @@
 </div>
 
 <!-- Footer Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="bg-secondary rounded-top p-4">
-        <div class="row">
-            <div class="col-12 col-sm-6 text-center text-sm-start">
-                &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
-            </div>
-            <div class="col-12 col-sm-6 text-center text-sm-end">
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
-</div>
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
 
