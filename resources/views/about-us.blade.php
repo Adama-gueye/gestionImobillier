@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="assets/css/vanilla-zoom.min.css">
 </head>
 
-<body>
+<body style="background-color: blanchedalmond;">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
         <div class="container"><a class="navbar-brand logo" href="#">Immobilier</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="{{route('acceuil')}}">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('apropos')}}">a propos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('acceuil')}}">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{route('apropos')}}" >a propos</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('login')}}">connection</a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                    <p>Une résidence élégante et moderne située au cœur de la ville, offrant un confort exceptionnel et des équipements de luxe. Cette propriété unique combine un design contemporain avec des espaces de vie spacieux. Profitez de la tranquillité dans un environnement soigneusement conçu, idéal pour une vie urbaine sophistiquée.</p>
                 </div>
                 <div class="row justify-content-center">
 

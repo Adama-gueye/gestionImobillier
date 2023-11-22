@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/comment', [CommentaireController::class, 'index'])->name('comment');
     Route::post('/ajoutcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
     Route::get('/idcomment', [CommentaireController::class, 'show'])->name('test');
@@ -44,6 +44,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/deleteBien{id}',[BienController::class,'destroy'])->name('bien.destroy');
     Route::delete('/delete{id}',[UserController::class,'destroy'])->name('user.destroy');
     Route::patch('/user/{id}/changerole', [UserController::class,'changeRole'])->name('user.changeRole');
+
+});
+
+Route::middleware(['auth','role:user'])->group(function () {
+    Route::get('/comment', [CommentaireController::class, 'index'])->name('comment');
+    Route::post('/ajoutcommentaire', [CommentaireController::class, 'store'])->name('commentaire.store');
+    Route::get('/idcomment', [CommentaireController::class, 'show'])->name('test');
+    Route::get('/bien{id}',[UserController::class,'biens'])->name('biens');
+    Route::get('/detailBien{id}',[UserController::class,'show'])->name('detailBien');
 
 });
 

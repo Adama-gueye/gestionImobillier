@@ -27,9 +27,9 @@ class BienController extends Controller
         $comments = Commentaire::all();
         return view('about-us',compact('biens','comments'));
     }
+
     function acceuil() {
         $biens = Bien::all();
-       
         return view('index',compact('biens'));
     }
 
@@ -93,7 +93,8 @@ class BienController extends Controller
     {
         $bien=Bien::find($id);
         $users = User::all();
-        return view('template.updateBien',compact('bien', 'users'));
+        $user = Auth::user();
+        return view('template.updateBien',compact('bien', 'users','user'));
     }
     
     /**
