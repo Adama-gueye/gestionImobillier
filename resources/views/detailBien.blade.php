@@ -60,6 +60,17 @@
                <h4> categorie : {{$bien->categorie}} </h4> 
                <h4> adresse_localisation : {{$bien->adresse_localisation}} </h4> 
                <h4> status : {{$bien->status}} </h4> 
+               <h4> Nombre de Chambre : {{$bien->nbrChambre}} </h4>
+               <div class="image-scroll-container">
+                    @foreach($images as $image)
+                        @if($image->bien_id === $bien->id)
+                            <img src="{{ url('public/images/'.$image->url) }}" width="200" height="200" class="img img-responsive" alt="">
+                        @endif
+                    @endforeach
+                </div>
+               <h4> Nombre de Balcon : {{$bien->nbrBalcon}} </h4> 
+               <h4> Nombre de Toilette : {{$bien->nbrToilette}} </h4>
+               <h4> Nombre de Espace Vert : {{$bien->nbrEspaceVert}} </h4>
  
         </div>
         <div class="col-md-3 mt-5">   
@@ -98,5 +109,17 @@
            
 
 </body>
+<style> 
+    .image-scroll-container {
+            overflow-x: auto;
+            white-space: nowrap; /* Empêche le saut de ligne */
+        }
 
+        .image-scroll-container img {
+            display: inline-block;
+            max-width: 100%; /* Assurez-vous que les images ne dépassent pas la largeur du conteneur */
+            height: auto;
+        }
+</style>
+</style>
 </html>

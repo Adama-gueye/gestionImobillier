@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BienMail;
+use App\Mail\Bienvenue;
 use App\Models\Bien;
 use App\Models\Commentaire;
 use App\Models\GestionBien;
@@ -9,6 +11,7 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BienController extends Controller
 {
@@ -90,63 +93,35 @@ class BienController extends Controller
         $bien->status = $request->status;
         $bien->nbrChambre = intval($request->nbrChambre);
         $bien->nbrToilette = intval($request->nbrToilette);
+        $bien->nbrBalcon = intval($request->nbrBalcon);
         $bien->nbrEspaceVert = intval($request->nbrEspaceVert);
         $bien->dimension = floatval($request->dimension);
         $bien->save();
-        // if ($request->hasFile('images')) {
-        //     foreach ($request->file('images') as $imageFile) {
-        //         $file= $request->file('image');
-        //         $filename = date('YmdHi') . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
-        //         $path = $imageFile->storeAs('public/images', $filename);
-
-        //         $image = new Image();
-        //         $image->url = $filename;
-        //         $image->bien_id = $bien->id;
-        //         $image->save();
-        //     }
-        // }
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $imageFile) {
+                $file= $imageFile;
                 $filename = date('YmdHi') . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
-                $path = $imageFile->storeAs('public/images', $filename);
-               
-        
+                $file->move(public_path('public/images'), $filename);
                 $image = new Image();
                 $image->url = $filename;
                 $image->bien_id = $bien->id;
                 $image->save();
             }
         }
-        // if ($request->hasFile('images')) {
-        //     foreach ($request->file('images') as $imageFile) {
-        //         $path = $imageFile->store('public/images');
-    
-        //         $image = new Image();
-        //         $image->url = basename($path);
-                
-                
-        //         $image->bien_id = $bien->id;
-        //         $image->save();
-        //     }
-        // }
-    //     if ($request->hasFile('images')) {
-    //         foreach ($request->file('images') as $imageFile) {
-    //             $path = $imageFile->store('public/images');
-    
-                
-    
-        
-    // $image = new Image();
-    //             $image->url = basename($path);
-    //             $image->bien_id = $bien->id;
-    //             $image->save();
-    //         }
-    //     }
         $id = $bien->id;
         $gestionBien = new GestionBien();
         $gestionBien->user_id = $user->id;
         $gestionBien->bien_id = $id;
         $gestionBien->save();
+        $user = Auth::user();
+        $mailBien = [
+            'title' => 'Mail from Webappfix',
+            'body' => 'This is for testing email usign smtp',
+        ];
+        $users = User::all();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new BienMail($mailBien));
+        }
 
         return redirect()->route('index');
     }
@@ -159,7 +134,8 @@ class BienController extends Controller
         $bien=Bien::find($id);
         $users = User::all();
         $user = Auth::user();
-        return view('template.updateBien',compact('bien', 'users','user'));
+        $images = Image::all();
+        return view('template.updateBien',compact('bien', 'users','user','images'));
     }
     
     /**
@@ -202,7 +178,7 @@ class BienController extends Controller
         $bien->status = $request->status;
         $bien->nbrChambre = intval($request->nbrChambre);
         $bien->nbrToilette = intval($request->nbrToilette);
-        $bien->imageChambre = $request->imageChambre;
+        $bien->nbrBalcon = intval($request->nbrBalcon);
         $bien->nbrEspaceVert = intval($request->nbrEspaceVert);
         $bien->dimension = floatval($request->dimension);
         $bien->dimension = $request->dimension;

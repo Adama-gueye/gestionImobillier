@@ -163,37 +163,23 @@
                     </div>
                     <div class="mb-3">
                         <label for="nbrChambre" class="form-label">Nombre de Chambre</label>
-                        <select name="" class="form-control" id="nbrChambre" name="nbrChambre">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                        <input type="number" class="form-control" id="nbrChambre" name="nbrChambre" min="1">
                     </div>
                     <div class="mb-3">
                         <label for="imageChambre" class="form-label">Vue</label>
                         <input type="file" class="form-control bg-dark" id="imageChambre" multiple name="images[]" accept="image/*">
                     </div>
                     <div class="mb-3">
+                        <label for="nbrToilette" class="form-label">Nombre de Toilette</label>
+                        <input type="number" class="form-control" id="nbrToilette" name="nbrToilette" min="1">
+                    </div>
+                    <div class="mb-3">
                         <label for="nbrBalcon" class="form-label">Nombre de Balcon</label>
-                        <select name="" class="form-control" id="nbrBalcon" name="nbrBalcon">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                        <input type="number" class="form-control" id="nbrBalcon" name="nbrBalcon" min="1">
                     </div>
                     <div class="mb-3">
                         <label for="nbrEspaceVert" class="form-label">Nombre Espace Vert</label>
-                        <select name="" class="form-control" id="nbrEspaceVert" name="nbrEspaceVert">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                        <input type="number" class="form-control" id="nbrEspaceVert" name="nbrEspaceVert" min="1">
                     </div>
                     <fieldset class="row mb-3">Description
                         <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white"></textarea>
@@ -230,13 +216,13 @@
                                     <td>{{$gestionBien->bien->nom}}</td>
                                     <td>{{$gestionBien->bien->dimension}}</td>
                                     <td>
-                                        @if(strlen($gestionBien->bien->categorie) > 10)
-                                            {{ str_limit($gestionBien->bien->categorie, 10, '...') }}
+                                        @if(strlen($gestionBien->bien->description) > 7)
+                                            {{ Illuminate\Support\Str::limit($gestionBien->bien->description, 10, '...') }}
                                         @else
-                                            {{ $gestionBien->bien->categorie }}
+                                            {{ $gestionBien->bien->description }}
                                         @endif
                                     </td>
-                                    <td>{{$gestionBien->bien->description}}</td>
+                                    <td>{{$gestionBien->bien->categorie}}</td>
                                     <td>{{$gestionBien->bien->adresse_localisation}}</td>
                                     <td>{{$gestionBien->bien->nbrChambre}}</td>
                                     <td>{{$gestionBien->bien->status}}</td>

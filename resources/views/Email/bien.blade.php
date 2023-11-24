@@ -12,14 +12,14 @@
       }
 
       header {
-        background-color: #007bff;
+        background-color: #4caf50;
         color: #fff;
         text-align: center;
         padding: 20px;
       }
 
       h2 {
-        color: #007bff;
+        color: #4caf50;
       }
 
       p {
@@ -43,18 +43,18 @@
   </head>
   <body>
     <header>
-      <h1>Bienvenue dans notre plateforme BIEN_IMMOBILIER</h1>
+      <h1>BIEN_IMMOBILIER - Notification</h1>
     </header>
     <section style="padding: 20px;">
-      <h2>Merci de nous rejoindre !</h2>
-      <p>Nous sommes ravis de vous accueillir dans notre plateforme BIEN_IMMOBILIER. Votre présence compte énormément pour nous.</p>
-      <p>Voici un résumé des informations que vous nous avez fournies :</p>
+      <h2>Nouveau bien enregistré !</h2>
+      <p>Félicitations ! Nous avons enregistré avec succès un nouveau bien sur notre plateforme BIEN_IMMOBILIER. Voici les détails :</p>
       <ul>
-        <li><strong>Nom</strong>: Dupont</li>
-        <li><strong>Email</strong>: dupont@plop.fr</li>
+        <li><strong>Nom du bien</strong>: [Nom du bien]</li>
+        <li><strong>Catégorie</strong>: [Catégorie]</li>
+        <!-- Ajoutez d'autres détails du bien ici -->
       </ul>
-      <p>N'hésitez pas à explorer notre plateforme et à nous contacter si vous avez des questions. Nous sommes là pour vous aider.</p>
-      <p>Merci encore pour votre confiance.</p>
+      <p>Les utilisateurs intéressés pourront bientôt découvrir ce nouveau bien. N'hésitez pas à explorer notre plateforme pour plus de détails.</p>
+      <p>Merci de faire partie de notre communauté !</p>
     </section>
   </body>
 </html>

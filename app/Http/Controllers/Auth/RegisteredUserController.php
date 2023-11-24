@@ -47,11 +47,19 @@ class RegisteredUserController extends Controller
             'role' => 'user',
         ]);
 
+        
+
         event(new Registered($user));
 
         Auth::login($user);
 
          $user = Auth::user();
+         $mailData = [
+            'title' => 'Mail from Webappfix',
+            'body' => 'This is for testing email usign smtp',
+        ];
+        Mail::to($request->email)->send(new Bienvenue($mailData));
+
 
         if ($request->role === 'admin') {
             return redirect()->route('index');
@@ -61,5 +69,8 @@ class RegisteredUserController extends Controller
         }else{
             return view('template.404');
         }
+
+        
+        //dd('Email send successfully.');
     }
 }

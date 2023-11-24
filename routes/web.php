@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BienController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('send-mail',[MailController::class,'index']);
+//Route::get('send-mail',[RegisteredUserController::class,'index']);
 Route::get('/',[BienController::class, 'acceuil'])->name('acceuil');
 Route::get('/apropos',[BienController::class, 'apropos'])->name('apropos');
 

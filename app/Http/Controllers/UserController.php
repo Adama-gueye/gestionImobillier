@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bien;
 use App\Models\Commentaire;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,8 @@ class UserController extends Controller
         $bien=Bien::find($id);
         $user = Auth::user();
         $comments = Commentaire::all();
-        return view('detailBien',compact('bien', 'user','comments'));
+        $images = Image::all();
+        return view('detailBien',compact('bien', 'user','comments','images'));
     }
 
     /**

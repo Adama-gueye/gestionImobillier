@@ -132,7 +132,6 @@
                         <label for="image" class="form-label">Image actuelle</label><br>
                         <img src="{{ url('public/images/' . $bien->image) }}" width="100" height="100" class="img img-responsive" alt="">
                     </div>
-
                     <div class="mb-3">
                         <label for="new_image" class="form-label">Nouvelle image</label>
                         <input type="file" class="form-control" name="image" value="{{$bien->image}}">
@@ -164,41 +163,36 @@
                     </div>
                     <div class="mb-3">
                         <label for="dimension" class="form-label">Dimension</label>
-                        <input type="text" class="form-control" id="dimension" name="dimension">
+                        <input type="text" class="form-control" id="dimension" name="dimension" value="{{ $bien->dimension}}">
                     </div>
                     <div class="mb-3">
                         <label for="nbreChambre" class="form-label">Nombre de Chambre</label>
-                        <select name="" class="form-control" id="nbreChambre" name="nbreChambre">
-                            <option value="1" {{ $bien->nbreChambre == 1 ? 'selected' : '' }}>1</option>
-                            <option value="2" {{ $bien->nbreChambre == 2 ? 'selected' : '' }}>2</option>
-                            <option value="3" {{ $bien->nbreChambre == 3 ? 'selected' : '' }}>3</option>
-                            <option value="4" {{ $bien->nbreChambre == 4 ? 'selected' : '' }}>4</option>
-                            <option value="5" {{ $bien->nbreChambre == 5 ? 'selected' : '' }}>5</option>
-                        </select>
+                        <input type="number" class="form-control" id="nbrChambre" name="nbrChambre" min="1" value="{{ $bien->nbrChambre}}">
+                    </div>
+                    <label for="">Images actuelles</label>
+                    <div class="image-scroll-container">
+                        @foreach($images as $image)
+                            @if($image->bien_id === $bien->id)
+                                <img src="{{ url('public/images/'.$image->url) }}" width="200" height="200" class="img img-responsive" alt="" >
+                            @endif
+                        @endforeach
+                    </div>
+                    <label for="">Nouvelles Images</label>
+                    <div class="mb-3">
+                        <label for="imageChambre" class="form-label">Vue</label>
+                        <input type="file" class="form-control bg-dark" id="imageChambre" multiple name="images[]" accept="image/*">
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" class="form-control bg-dark" id="image" name="image">
+                        <label for="nbrToilette" class="form-label">Nombre de Toilette</label>
+                        <input type="number" class="form-control" id="nbrToilette" name="nbrToilette" min="1" value="{{ $bien->nbrToilette}}">
                     </div>
                     <div class="mb-3">
-                        <label for="nbreBalcon" class="form-label">Nombre de Balcon</label>
-                        <select name="" class="form-control" id="nbreBalcon" name="nbreBalcon">
-                            <option value="1" {{ $bien->nbreBalcon == 1 ? 'selected' : '' }}>1</option>
-                            <option value="2" {{ $bien->nbreBalcon == 2 ? 'selected' : '' }}>2</option>
-                            <option value="3" {{ $bien->nbreBalcon == 3 ? 'selected' : '' }}>3</option>
-                            <option value="4" {{ $bien->nbreBalcon == 4 ? 'selected' : '' }}>4</option>
-                            <option value="5" {{ $bien->nbreBalcon == 5 ? 'selected' : '' }}>5</option>
-                        </select>
+                        <label for="nbrBalcon" class="form-label">Nombre de Balcon</label>
+                        <input type="number" class="form-control" id="nbrBalcon" name="nbrBalcon" min="1" value="{{ $bien->nbrBalcon}}">
                     </div>
                     <div class="mb-3">
-                        <label for="nbreEspaceVert" class="form-label">Nombre Espace Vert</label>
-                        <select name="" class="form-control" id="nbreEspaceVert" name="nbreEspaceVert">
-                            <option value="1" {{ $bien->nbreEspaceVert == 1 ? 'selected' : '' }}>1</option>
-                            <option value="2" {{ $bien->nbreEspaceVert == 2 ? 'selected' : '' }}>2</option>
-                            <option value="3" {{ $bien->nbreEspaceVert == 3 ? 'selected' : '' }}>3</option>
-                            <option value="4" {{ $bien->nbreEspaceVert == 4 ? 'selected' : '' }}>4</option>
-                            <option value="5" {{ $bien->nbreEspaceVert == 5 ? 'selected' : '' }}>5</option>
-                        </select>
+                        <label for="nbrEspaceVert" class="form-label">Nombre Espace Vert</label>
+                        <input type="number" class="form-control" id="nbrEspaceVert" name="nbrEspaceVert" min="1" value="{{ $bien->nbrEspaceVert}}">
                     </div>
                     <fieldset class="row mb-3">Description
                         <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">{{ $bien->description}}</textarea>
