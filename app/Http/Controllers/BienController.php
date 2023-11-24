@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bien;
 use App\Models\Commentaire;
+use App\Models\GestionBien;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +19,10 @@ class BienController extends Controller
     {
         //Lister
         $biens = Bien::all();
+        $gestionBiens = GestionBien::all();
         $user = Auth::user();
        
-        return view('template.form',compact('biens','user'));
+        return view('template.form',compact('biens','user','gestionBiens'));
     }
 
     function apropos() {
@@ -59,7 +62,8 @@ class BienController extends Controller
             'description.required' => 'Desolé! veuillez choisir une description svp',
             'status.required' => 'Desolé! veuillez choisir un status svp',
             'categorie.required' => 'Desolé! veuillez choisir une categorie svp',
-            'adresse_localisation.required' => 'Desolé! l\'adresse de localisation est obligatoir'
+            'adresse_localisation.required' => 'Desolé! l\'adresse de localisation est obligatoir',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -68,9 +72,11 @@ class BienController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         //Enregistrer
         $request->validate($this->rules(), $this->messages());
         $bien = new Bien();
+        
         $bien->nom = $request->nom;
         $bien->categorie = $request->categorie;
         if($request->file('image')){
@@ -82,7 +88,66 @@ class BienController extends Controller
         $bien->description = $request->description;
         $bien->adresse_localisation = $request->adresse_localisation;
         $bien->status = $request->status;
+        $bien->nbrChambre = intval($request->nbrChambre);
+        $bien->nbrToilette = intval($request->nbrToilette);
+        $bien->nbrEspaceVert = intval($request->nbrEspaceVert);
+        $bien->dimension = floatval($request->dimension);
         $bien->save();
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $imageFile) {
+        //         $file= $request->file('image');
+        //         $filename = date('YmdHi') . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+        //         $path = $imageFile->storeAs('public/images', $filename);
+
+        //         $image = new Image();
+        //         $image->url = $filename;
+        //         $image->bien_id = $bien->id;
+        //         $image->save();
+        //     }
+        // }
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $filename = date('YmdHi') . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+                $path = $imageFile->storeAs('public/images', $filename);
+               
+        
+                $image = new Image();
+                $image->url = $filename;
+                $image->bien_id = $bien->id;
+                $image->save();
+            }
+        }
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $imageFile) {
+        //         $path = $imageFile->store('public/images');
+    
+        //         $image = new Image();
+        //         $image->url = basename($path);
+                
+                
+        //         $image->bien_id = $bien->id;
+        //         $image->save();
+        //     }
+        // }
+    //     if ($request->hasFile('images')) {
+    //         foreach ($request->file('images') as $imageFile) {
+    //             $path = $imageFile->store('public/images');
+    
+                
+    
+        
+    // $image = new Image();
+    //             $image->url = basename($path);
+    //             $image->bien_id = $bien->id;
+    //             $image->save();
+    //         }
+    //     }
+        $id = $bien->id;
+        $gestionBien = new GestionBien();
+        $gestionBien->user_id = $user->id;
+        $gestionBien->bien_id = $id;
+        $gestionBien->save();
+
         return redirect()->route('index');
     }
 
@@ -104,8 +169,9 @@ class BienController extends Controller
     {
         $bien=Bien::find($id);
         $user=Auth::user();
+        $images = Image::all();
         $comments = Bien::with('commentaires.bienAssocie')->find($id);
-        return view('template.detail',compact('bien', 'comments','user'));
+        return view('template.detail',compact('bien', 'comments','user','images'));
     }
 
     /**
@@ -134,6 +200,12 @@ class BienController extends Controller
         $bien->description = $request->description;
         $bien->adresse_localisation = $request->adresse_localisation;
         $bien->status = $request->status;
+        $bien->nbrChambre = intval($request->nbrChambre);
+        $bien->nbrToilette = intval($request->nbrToilette);
+        $bien->imageChambre = $request->imageChambre;
+        $bien->nbrEspaceVert = intval($request->nbrEspaceVert);
+        $bien->dimension = floatval($request->dimension);
+        $bien->dimension = $request->dimension;
         $bien->save();
         return redirect()->route('index');
     }

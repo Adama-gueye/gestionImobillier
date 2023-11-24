@@ -122,10 +122,20 @@
             <div class="col-md-3 mt-5">               
 
                <h4> Nom : {{$bien->nom}} </h4> 
+               <h4> Dimension : {{$bien->dimension}} </h4> 
                <h4> description : {{$bien->description}} </h4> 
                <h4> categorie : {{$bien->categorie}} </h4> 
                <h4> adresse_localisation : {{$bien->adresse_localisation}} </h4> 
                <h4> status : {{$bien->status}} </h4> 
+               <h4> Nombre de Chambre : {{$bien->nbrChambre}} </h4>
+               @foreach($images as $image)
+                    @if($image->bien_id === $bien->id)
+                        <h4><img src="{{ url('public/images/'.$image->url) }}" width="200" height="200" class="img img-responsive" alt=""></h4>
+                    @endif
+               @endforeach
+               <h4> Nombre de Balcon : {{$bien->nbrBalcon}} </h4> 
+               <h4> Nombre de Toilette : {{$bien->nbrToilette}} </h4>
+               <h4> Nombre de Espace Vert : {{$bien->nbrEspaceVert}} </h4>
  
         </div>
         <div class="col-md-3 mt-5">   
@@ -135,8 +145,6 @@
         </div> 
         <div class="col-md-6 mt-2"> 
             <h5  class="mt-5">Commentaires</h5>
-            
-            
             @foreach ($bien->commentaires as $commentaire)
             <form method="post" action="{{ route('deletecomment', ['id' => $commentaire->id, 'bien_id' => $bien->id]) }}">
             @csrf

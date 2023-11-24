@@ -4,6 +4,7 @@ use App\Http\Controllers\BienController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MailController;
 use App\Models\Bien;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('send-mail',[MailController::class,'index']);
 Route::get('/',[BienController::class, 'acceuil'])->name('acceuil');
 Route::get('/apropos',[BienController::class, 'apropos'])->name('apropos');
 

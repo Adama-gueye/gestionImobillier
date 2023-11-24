@@ -26,6 +26,9 @@ class User extends Authenticatable
     function bien() {
         return $this->belongsToMany(User::class, 'commentaires', 'user_id', 'bien_id');
      }
+     function gestionUser() {
+        return $this->belongsToMany(Bien::class, 'gestionBiens', 'user_id', 'bien_id');
+     }
     /**
      * The attributes that should be hidden for serialization.
      *

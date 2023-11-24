@@ -111,8 +111,6 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
         <!-- Form Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -130,7 +128,7 @@
                         </div>
                         @endif
                     @csrf 
-                <div class="mb-3">
+                    <div class="mb-3">
                         <label for="image" class="form-label">Image</label>
                         <input type="file" class="form-control bg-dark" id="image" name="image">
                     </div>
@@ -147,11 +145,6 @@
                             <option value="Classique">Classic</option>
                         </select>
                     </div>
-                    <fieldset class="row mb-3">Description
-                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">
-                            
-                        </textarea>
-                    </fieldset>
                     <div class="mb-3">
                         <label for="adresse" class="form-label">Adresse</label>
                         <input type="text" class="form-control" id="adresse" name="adresse_localisation">
@@ -164,6 +157,47 @@
                             <option value="Non Occupé">Non Occupé</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="dimension" class="form-label">Dimension</label>
+                        <input type="text" class="form-control" id="dimension" name="dimension">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrChambre" class="form-label">Nombre de Chambre</label>
+                        <select name="" class="form-control" id="nbrChambre" name="nbrChambre">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageChambre" class="form-label">Vue</label>
+                        <input type="file" class="form-control bg-dark" id="imageChambre" multiple name="images[]" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrBalcon" class="form-label">Nombre de Balcon</label>
+                        <select name="" class="form-control" id="nbrBalcon" name="nbrBalcon">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbrEspaceVert" class="form-label">Nombre Espace Vert</label>
+                        <select name="" class="form-control" id="nbrEspaceVert" name="nbrEspaceVert">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <fieldset class="row mb-3">Description
+                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white"></textarea>
+                    </fieldset>
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form>
             </div>
@@ -179,34 +213,46 @@
                         <tr>
                             <th scope="col">IMAGE</th>
                             <th scope="col">NOM</th>
+                            <th scope="col">DIMENSION</th>
                             <th scope="col">CATEGORIE</th>
                             <th scope="col">DESCRIPTION</th>
                             <th scope="col">ADRESSE</th>
+                            <th scope="col">NOMBRE DE CHAMBRE</th>
                             <th scope="col">STATUS</th>
                             <th scope="col">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($biens as $bien)
-                            <tr>
-                                <td><img src="{{ url('public/images/'.$bien->image) }}" width="70" height="70" class="img img-responsive" alt=""></td>
-                                <td>{{$bien->nom}}</td>
-                                <td>{{$bien->categorie}}</td>
-                                <td>{{$bien->description}}</td>
-                                <td>{{$bien->adresse_localisation}}</td>
-                                <td>{{$bien->status}}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ route('bien.show', $bien->id) }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{ route('bien.detail', $bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
-                                    <form method="POST" action="{{ route('bien.destroy',$bien->id)}}" accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                    </div>
-                                </td>
-                            </tr>
+                        @foreach($gestionBiens as $gestionBien)
+                            @if($gestionBien->user_id === $user->id)
+                                <tr>
+                                    <td><img src="{{ url('public/images/'.$gestionBien->bien->image) }}" width="70" height="70" class="img img-responsive" alt=""></td>
+                                    <td>{{$gestionBien->bien->nom}}</td>
+                                    <td>{{$gestionBien->bien->dimension}}</td>
+                                    <td>
+                                        @if(strlen($gestionBien->bien->categorie) > 10)
+                                            {{ str_limit($gestionBien->bien->categorie, 10, '...') }}
+                                        @else
+                                            {{ $gestionBien->bien->categorie }}
+                                        @endif
+                                    </td>
+                                    <td>{{$gestionBien->bien->description}}</td>
+                                    <td>{{$gestionBien->bien->adresse_localisation}}</td>
+                                    <td>{{$gestionBien->bien->nbrChambre}}</td>
+                                    <td>{{$gestionBien->bien->status}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('bien.show', $gestionBien->bien->id) }}" class="btn btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{{ route('bien.detail', $gestionBien->bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
+                                        <form method="POST" action="{{ route('bien.destroy',$gestionBien->bien->id)}}" accept-charset="UTF-8" style="display:inline">
+                                            {{ method_field('DELETE') }}
+                                            {{ csrf_field() }}
+                                            <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

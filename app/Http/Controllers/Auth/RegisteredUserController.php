@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Bienvenue;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -55,6 +57,7 @@ class RegisteredUserController extends Controller
             return redirect()->route('index');
         } elseif($request->role === 'user') {
             return redirect()->route('biens', ['id' => $user->id]);
+            //Mail::to($user->email)->send(new Bienvenue())
         }else{
             return view('template.404');
         }

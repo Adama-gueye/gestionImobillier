@@ -111,9 +111,6 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
-
         <!-- Form Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -153,9 +150,6 @@
                             <option value="Classique" {{ $bien->categorie == 'Classique' ? 'selected' : '' }}>Classique</option>
                         </select>
                     </div>
-                    <fieldset class="row mb-3">Description
-                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">{{ $bien->description}}</textarea>
-                    </fieldset>
                     <div class="mb-3">
                         <label for="adresse" class="form-label">Adresse</label>
                         <input type="text" class="form-control" id="adresse" name="adresse_localisation" value="{{ $bien->adresse_localisation}}">
@@ -168,6 +162,47 @@
                             <option value="Non Occupé" {{ $bien->status == 'Non Occupé' ? 'selected' : '' }}>Non Occupé</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="dimension" class="form-label">Dimension</label>
+                        <input type="text" class="form-control" id="dimension" name="dimension">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbreChambre" class="form-label">Nombre de Chambre</label>
+                        <select name="" class="form-control" id="nbreChambre" name="nbreChambre">
+                            <option value="1" {{ $bien->nbreChambre == 1 ? 'selected' : '' }}>1</option>
+                            <option value="2" {{ $bien->nbreChambre == 2 ? 'selected' : '' }}>2</option>
+                            <option value="3" {{ $bien->nbreChambre == 3 ? 'selected' : '' }}>3</option>
+                            <option value="4" {{ $bien->nbreChambre == 4 ? 'selected' : '' }}>4</option>
+                            <option value="5" {{ $bien->nbreChambre == 5 ? 'selected' : '' }}>5</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control bg-dark" id="image" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbreBalcon" class="form-label">Nombre de Balcon</label>
+                        <select name="" class="form-control" id="nbreBalcon" name="nbreBalcon">
+                            <option value="1" {{ $bien->nbreBalcon == 1 ? 'selected' : '' }}>1</option>
+                            <option value="2" {{ $bien->nbreBalcon == 2 ? 'selected' : '' }}>2</option>
+                            <option value="3" {{ $bien->nbreBalcon == 3 ? 'selected' : '' }}>3</option>
+                            <option value="4" {{ $bien->nbreBalcon == 4 ? 'selected' : '' }}>4</option>
+                            <option value="5" {{ $bien->nbreBalcon == 5 ? 'selected' : '' }}>5</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nbreEspaceVert" class="form-label">Nombre Espace Vert</label>
+                        <select name="" class="form-control" id="nbreEspaceVert" name="nbreEspaceVert">
+                            <option value="1" {{ $bien->nbreEspaceVert == 1 ? 'selected' : '' }}>1</option>
+                            <option value="2" {{ $bien->nbreEspaceVert == 2 ? 'selected' : '' }}>2</option>
+                            <option value="3" {{ $bien->nbreEspaceVert == 3 ? 'selected' : '' }}>3</option>
+                            <option value="4" {{ $bien->nbreEspaceVert == 4 ? 'selected' : '' }}>4</option>
+                            <option value="5" {{ $bien->nbreEspaceVert == 5 ? 'selected' : '' }}>5</option>
+                        </select>
+                    </div>
+                    <fieldset class="row mb-3">Description
+                        <textarea name="description" id="" cols="30" rows="10" class="bg-dark text-white">{{ $bien->description}}</textarea>
+                    </fieldset>
                     {{ method_field('PATCH') }}
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-primary">Enregistrer</button>

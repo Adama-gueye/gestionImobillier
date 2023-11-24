@@ -11,7 +11,13 @@ class Bien extends Model
     function user() {
         return $this->belongsToMany(Bien::class, 'commentaires', 'user_id', 'bien_id');
      }
+     function gestionUser() {
+        return $this->belongsToMany(Bien::class, 'gestionBiens', 'user_id', 'bien_id');
+     }
     public function commentaires() {
         return $this->hasMany(Commentaire::class);
+    }
+    public function images(){
+        return $this->hasMany(Image::class);
     }
 }

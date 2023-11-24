@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('description');
             $table->string('adresse_localisation');
             $table->enum('status', ['Occupé', 'Non Occupé']);
+            $table->integer('nbrChambre');
+            $table->float('dimension');
+            $table->integer('nbrToilette');
+            $table->integer('nbrBalcon')->nullable();
+            $table->integer('nbrEspaceVert')->nullable();
             $table->timestamps();
         });
     }
