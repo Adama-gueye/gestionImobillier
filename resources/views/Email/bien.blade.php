@@ -54,7 +54,7 @@
         <!-- Ajoutez d'autres détails du bien ici -->
       </ul>
       <p>Les utilisateurs intéressés pourront bientôt découvrir ce nouveau bien. N'hésitez pas à explorer notre plateforme pour plus de détails.</p>
-      <p>Merci de faire partie de notre communauté !</p>
+      <p>Merci de faire partie de notre communauté ! http://127.0.0.1:8000/apropos</p>
     </section>
   </body>
 </html>
