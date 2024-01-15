@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->enum('categorie', ['Luxe', 'Moyen', 'Classique']);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('description');
             $table->string('adresse_localisation');
             $table->enum('status', ['Occupé', 'Non Occupé']);
