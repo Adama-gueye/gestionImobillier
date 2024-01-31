@@ -13,19 +13,6 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="#">Immobilier</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="{{route('acceuil')}}">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('apropos')}}">a propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('login')}}">connection</a></li>
-                    <li class="nav-item"></li>
-                    <li class="nav-item"></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <main class="page">
         <section class="clean-block about-us">
             <div class="container">
@@ -42,8 +29,8 @@
     @foreach($biens as $bien)
         <div class="col-sm-6 col-lg-4">
             <div class="card text-center clean-card position-relative">
-                <img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->image) }}">
-                <a href="{{ route('detailBien', ['id' => $bien->id]) }}" class="btn btn-success position-absolute top-50 start-50 translate-middle" style="opacity: 0.8;">Voir plus</a>
+                <img class="card-img-top w-100 d-block" src="{{url('public/images/'.$bien->bien->image) }}">
+                <a href="{{ route('detailBien', ['id' => $bien->bien->id]) }}" class="btn btn-success position-absolute top-50 start-50 translate-middle" style="opacity: 0.8;">Voir plus</a>
             </div>
         </div>
     @endforeach
@@ -52,24 +39,6 @@
             </div>
         </section>
     </main>
-    <footer class="page-footer dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h5>Get started</h5>
-                    <ul>
-                        <li><a href="#">ACCUEIL</a></li>
-                        <li><a href="#">A&nbsp; PROPOS</a></li>
-                        <li><a href="#">CONNECTION</a></li>
-                    </ul>
-                </div>
-                
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>© 2023 Copyright Text</p>
-        </div>
-    </footer>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
     <script src="assets/js/vanilla-zoom.js"></script>

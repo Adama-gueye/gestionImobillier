@@ -56,8 +56,8 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('/idcomment', [CommentaireController::class, 'show'])->name('test');
     Route::get('/bien{id}',[UserController::class,'biens'])->name('biens');
     Route::get('/detailBien{id}',[UserController::class,'show'])->name('detailBien');
+    Route::patch('/cc{id}',[UserController::class,'updateBienEtat'])->name('bienUpdateEtat.update');
 
 });
-
 
 require __DIR__.'/auth.php';

@@ -54,13 +54,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
          $user = Auth::user();
-         $mailData = [
-            'title' => 'Mail from Webappfix',
-            'body' => 'This is for testing email usign smtp',
-        ];
-        Mail::to($request->email)->send(new Bienvenue($mailData));
-
-
+         
         if ($request->role === 'admin') {
             return redirect()->route('index');
         } elseif($request->role === 'user') {

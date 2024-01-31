@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('description');
             $table->string('adresse_localisation');
-            $table->enum('status', ['Occupé', 'Non Occupé']);
             $table->integer('nbrChambre');
             $table->float('dimension');
             $table->integer('nbrToilette');

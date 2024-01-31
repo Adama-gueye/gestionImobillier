@@ -33,12 +33,12 @@
 </head>
 
 <body>            <!-- Navbar End -->
-            <div class="container mt-2">
-    @if(session('success'))
-        <div class="alert alert-success">
-            return {{session('success')}}
-        </div>
-    @endif
+    <div class="container mt-2">
+        @if(session('success'))
+            <div class="alert alert-success">
+                return {{session('success')}}
+            </div>
+        @endif
 <div class="row">
     <div class="card-header" style="background: rgb(2,36,36); color:white;text-align:center;"><h2> Détail concernant le bien {{$bien->nom}}</h2></div>
     <form id="redirectBackForm" method="post">
@@ -54,7 +54,6 @@
     </script>
         <div class="row col-md-8">
             <div class="col-md-6 mt-5">                            
-
                <h4> Nom : {{$bien->nom}} </h4> 
                <h4> description : {{$bien->description}} </h4> 
                <h4> categorie : {{$bien->categorie}} </h4> 
@@ -73,24 +72,28 @@
                <h4> Nombre de Espace Vert : {{$bien->nbrEspaceVert}} </h4>
  
         </div>
-        <div class="col-md-3 mt-5">   
-            <table>
-                <tr><td><img src="{{ url('public/images/'.$bien->image) }}" width="200" height="200" class="img img-responsive" alt=""></td></tr>
-            </table>
-        </div>
+            <div class="col-md-3 mt-5">   
+                <table>
+                    <tr><td><img src="{{ url('public/images/'.$bien->image) }}" width="200" height="200" class="img img-responsive" alt=""></td></tr>
+                </table>
+            </div>
         </div>
 
         <div class="col-md-3"> 
                 <h5 style="text-align: center;" class="mt-2">Commentaires</h5>
-                <form enctype="multipart/form-data" action="{{ route('commentaire.store') }}"  method="POST">
-                    @csrf
-                    <input type="hidden" name="id_bien" value="{{$bien->id}}">
-                    <input type="hidden" name="id_user" value="{{$user->id}}">
-                    <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
-                    <button type="submit" class=" alert alert-danger">Commenter</button>
-                </form>
+                    <form enctype="multipart/form-data" action="{{ route('commentaire.store') }}"  method="POST">
+                        @csrf
+                        <input type="hidden" name="id_bien" value="{{$bien->id}}">
+                        <input type="hidden" name="id_user" value="{{$user->id}}">
+                        <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+                        <button type="submit" class=" alert alert-danger">Commenter</button>
+                    </form>
                 </div>
-
+                <form action="{{ route('bienUpdateEtat.update',$gestionBien)}}"  method="POST">
+                    {{ method_field('PATCH') }}
+                    {{ csrf_field() }}
+                    <button type="submit" class=" alert alert-success">Commander</button>
+                </form>
             </div>
             <div class="row">
                 @foreach($comments as $comment)
@@ -106,8 +109,6 @@
                     @endif
                 @endforeach
             </div>
-           
-
 </body>
 <style> 
     .image-scroll-container {

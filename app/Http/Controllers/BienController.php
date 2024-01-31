@@ -21,15 +21,26 @@ class BienController extends Controller
     public function index()
     {
         //Lister
-        $biens = Bien::all();
-        $gestionBiens = GestionBien::all();
+        $bienCommander = Bien::all();
+        $bienUserCommander = GestionBien::all()->where('etat',"commander");
+        $bienUserNonCommander = GestionBien::all()->where('etat',"nonCommander");
+
         $user = Auth::user();
        
-        return view('template.form',compact('biens','user','gestionBiens'));
+        return view('template.form',compact('bienCommander','user','bienUserCommander','bienUserNonCommander'));
     }
 
+    // public function bienNonCommander()
+    // {
+    //     //Lister
+    //     $bienNonCommander = Bien::all();
+    //     $user = Auth::user();
+       
+    //     return view('template.form',compact('bienNonCommander','user','bienUserNonCommander'));
+    // }
+
     function apropos() {
-        $biens = Bien::all();
+        $biens = GestionBien::all()->where('etat',"nonCommander");
         $comments = Commentaire::all();
         return view('about-us',compact('biens','comments'));
     }
@@ -52,7 +63,7 @@ class BienController extends Controller
             'image' => 'required',
             'nom' => 'required',
             'description' => 'required',
-            'status' => 'required',
+            //'status' => 'required',
             'categorie' => 'required',
             'adresse_localisation' => 'required',
         ];
@@ -63,7 +74,7 @@ class BienController extends Controller
             'image.required' => 'Desolé! Veuillez choisir une image svp',
             'nom.required' => 'Desolé! le champ nom est Obligatoire',
             'description.required' => 'Desolé! veuillez choisir une description svp',
-            'status.required' => 'Desolé! veuillez choisir un status svp',
+            //'status.required' => 'Desolé! veuillez choisir un status svp',
             'categorie.required' => 'Desolé! veuillez choisir une categorie svp',
             'adresse_localisation.required' => 'Desolé! l\'adresse de localisation est obligatoir',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -90,7 +101,6 @@ class BienController extends Controller
         }
         $bien->description = $request->description;
         $bien->adresse_localisation = $request->adresse_localisation;
-        $bien->status = $request->status;
         $bien->nbrChambre = intval($request->nbrChambre);
         $bien->nbrToilette = intval($request->nbrToilette);
         $bien->nbrBalcon = intval($request->nbrBalcon);
@@ -113,16 +123,6 @@ class BienController extends Controller
         $gestionBien->user_id = $user->id;
         $gestionBien->bien_id = $id;
         $gestionBien->save();
-        $user = Auth::user();
-        $mailBien = [
-            'title' => 'Mail from Webappfix',
-            'body' => 'This is for testing email usign smtp',
-        ];
-        $users = User::all();
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new BienMail($mailBien));
-        }
-
         return redirect()->route('index');
     }
 
@@ -134,6 +134,14 @@ class BienController extends Controller
         $bien=Bien::find($id);
         $users = User::all();
         $user = Auth::user();
+        // $gestionBiens = GestionBien::all();
+
+        // foreach ($gestionBiens as $gestionBien) {
+        //     if($bien->id === $gestionBien->bien_id){
+        //         $gestionBien = $gestionBien->id;
+        //         break;
+        //     }
+        // }
         $images = Image::all();
         return view('template.updateBien',compact('bien', 'users','user','images'));
     }
@@ -175,7 +183,6 @@ class BienController extends Controller
         }
         $bien->description = $request->description;
         $bien->adresse_localisation = $request->adresse_localisation;
-        $bien->status = $request->status;
         $bien->nbrChambre = intval($request->nbrChambre);
         $bien->nbrToilette = intval($request->nbrToilette);
         $bien->nbrBalcon = intval($request->nbrBalcon);

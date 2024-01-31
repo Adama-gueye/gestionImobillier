@@ -36,14 +36,6 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        $user = Auth::user();
-
-        if ($user->role === 'admin') {
-            return redirect()->route('index');
-        } elseif($user->role === 'user') {
-            return redirect()->route('biens', ['id' => $user->id]);
-        }else{
-            return view('template.404');
-        }
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

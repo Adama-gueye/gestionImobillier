@@ -61,8 +61,6 @@
             </nav>
         </div>
         <!-- Sidebar End -->
-
-
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
@@ -150,14 +148,6 @@
                         <input type="text" class="form-control" id="adresse" name="adresse_localisation">
                     </div>
                     <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select name="status" id="" class="form-control">
-                            <option value="">---Veuillez choisir un status---</option>
-                            <option value="Occupé">Occupé</option>
-                            <option value="Non Occupé">Non Occupé</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="dimension" class="form-label">Dimension</label>
                         <input type="text" class="form-control" id="dimension" name="dimension">
                     </div>
@@ -193,7 +183,7 @@
     <div class="row g-4"> 
         <div class="col-sm-12 ">
             <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">LISTE DES BIENS</h6>
+                <h6 class="mb-4">LISTE DES BIENS COMMANDER</h6>
                 <table class="table table-dark">
                     <thead>
                         <tr>
@@ -204,12 +194,66 @@
                             <th scope="col">DESCRIPTION</th>
                             <th scope="col">ADRESSE</th>
                             <th scope="col">NOMBRE DE CHAMBRE</th>
-                            <th scope="col">STATUS</th>
                             <th scope="col">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($gestionBiens as $gestionBien)
+                        @foreach($bienUserCommander as $gestionBien)
+                            @if($gestionBien->user_id === $user->id)
+                                <tr>
+                                    <td><img src="{{ url('public/images/'.$gestionBien->bien->image) }}" width="70" height="70" class="img img-responsive" alt=""></td>
+                                    <td>{{$gestionBien->bien->nom}}</td>
+                                    <td>{{$gestionBien->bien->dimension}}</td>
+                                    <td>
+                                        @if(strlen($gestionBien->bien->description) > 7)
+                                            {{ Illuminate\Support\Str::limit($gestionBien->bien->description, 10, '...') }}
+                                        @else
+                                            {{ $gestionBien->bien->description }}
+                                        @endif
+                                    </td>
+                                    <td>{{$gestionBien->bien->categorie}}</td>
+                                    <td>{{$gestionBien->bien->adresse_localisation}}</td>
+                                    <td>{{$gestionBien->bien->nbrChambre}}</td>
+                                    <td>{{$gestionBien->bien->status}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('bien.detail', $gestionBien->bien->id) }}" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailSysteme"><i class="fas fa-eye"></i></a>
+                                        <form method="POST" action="{{ route('bien.destroy',$gestionBien->bien->id)}}" accept-charset="UTF-8" style="display:inline">
+                                            {{ method_field('DELETE') }}
+                                            {{ csrf_field() }}
+                                            <button type="submit" class="btn btn-outline-primary" onclick="return confirmDelete()" title="Supprimer Bien"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+<!-- Form End -->
+<!-- Table Start -->
+<div class="row g-4"> 
+        <div class="col-sm-12 ">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">LISTE DES BIENS NON COMMANDER</h6>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">IMAGE</th>
+                            <th scope="col">NOM</th>
+                            <th scope="col">DIMENSION</th>
+                            <th scope="col">CATEGORIE</th>
+                            <th scope="col">DESCRIPTION</th>
+                            <th scope="col">ADRESSE</th>
+                            <th scope="col">NOMBRE DE CHAMBRE</th>
+                            <th scope="col">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bienUserNonCommander as $gestionBien)
                             @if($gestionBien->user_id === $user->id)
                                 <tr>
                                     <td><img src="{{ url('public/images/'.$gestionBien->bien->image) }}" width="70" height="70" class="img img-responsive" alt=""></td>
@@ -245,7 +289,6 @@
             </div>
         </div>
 </div>
-<!-- Form End -->
 
 <script>
     function confirmDelete() {

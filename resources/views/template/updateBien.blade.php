@@ -154,14 +154,6 @@
                         <input type="text" class="form-control" id="adresse" name="adresse_localisation" value="{{ $bien->adresse_localisation}}">
                     </div>
                     <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select name="status" id="" class="form-control">
-                            <option value="">---Veuillez choisir un status---</option>
-                            <option value="Occupé" {{ $bien->status == 'Occupé' ? 'selected' : '' }}>Occupé</option>
-                            <option value="Non Occupé" {{ $bien->status == 'Non Occupé' ? 'selected' : '' }}>Non Occupé</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="dimension" class="form-label">Dimension</label>
                         <input type="text" class="form-control" id="dimension" name="dimension" value="{{ $bien->dimension}}">
                     </div>
